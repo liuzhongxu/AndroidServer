@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.User_CorpMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.po.User_Corp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="corp_name" property="corpName" jdbcType="VARCHAR" />
+    <result column="state_info" property="stateInfo" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, corp_name, state_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_corp_tab
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_corp_tab
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.po.User_Corp" >
+    insert into user_corp_tab (id, user_name, corp_name, state_info
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{corpName,jdbcType=VARCHAR},
+    #{stateInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.po.User_Corp" >
+    insert into user_corp_tab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="corpName != null" >
+        corp_name,
+      </if>
+      <if test="stateInfo != null" >
+        state_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpName != null" >
+        #{corpName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.po.User_Corp" >
+    update user_corp_tab
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="corpName != null" >
+        corp_name = #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="stateInfo != null" >
+        state_info = #{stateInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.po.User_Corp" >
+    update user_corp_tab
+    set user_name = #{userName,jdbcType=VARCHAR},
+      corp_name = #{corpName,jdbcType=VARCHAR},
+      state_info = #{stateInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByName" parameterType="com.test.demo.po.User_Corp" resultMap="BaseResultMap">
+    select *
+    from user_corp_tab
+    where user_name = #{userName,jdbcType=VARCHAR} AND corp_name = #{corpName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByName" parameterType="com.test.demo.po.User_Corp">
+    delete from user_corp_tab
+    where user_name = #{userName,jdbcType=VARCHAR} AND corp_name = #{corpName,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByUserName" parameterType="com.test.demo.po.User_Corp" resultMap="BaseResultMap">
+    select *
+    from user_corp_tab
+    where user_name =  #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectInHandle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from user_corp_tab
+    where corp_name = #{corpName,jdbcType=VARCHAR} AND state_info ="处理中"
+  </select>
+
+  <select id="selectMember" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from user_corp_tab
+    where corp_name = #{corpName,jdbcType=VARCHAR} AND state_info ="通过"
+  </select>
+
+</mapper>

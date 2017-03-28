@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.BusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.po.Business" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_name" property="businessName" jdbcType="VARCHAR" />
+    <result column="business_addr" property="businessAddr" jdbcType="VARCHAR" />
+    <result column="business_owner" property="businessOwner" jdbcType="VARCHAR" />
+    <result column="business_phone" property="businessPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, business_name, business_addr, business_owner, business_phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from business_tab
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business_tab
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.po.Business" >
+    insert into business_tab (id, business_name, business_addr, 
+      business_owner, business_phone)
+    values (#{id,jdbcType=INTEGER}, #{businessName,jdbcType=VARCHAR}, #{businessAddr,jdbcType=VARCHAR}, 
+      #{businessOwner,jdbcType=VARCHAR}, #{businessPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.po.Business" >
+    insert into business_tab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessName != null" >
+        business_name,
+      </if>
+      <if test="businessAddr != null" >
+        business_addr,
+      </if>
+      <if test="businessOwner != null" >
+        business_owner,
+      </if>
+      <if test="businessPhone != null" >
+        business_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddr != null" >
+        #{businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="businessOwner != null" >
+        #{businessOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPhone != null" >
+        #{businessPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.po.Business" >
+    update business_tab
+    <set >
+      <if test="businessName != null" >
+        business_name = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddr != null" >
+        business_addr = #{businessAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="businessOwner != null" >
+        business_owner = #{businessOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPhone != null" >
+        business_phone = #{businessPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.po.Business" >
+    update business_tab
+    set business_name = #{businessName,jdbcType=VARCHAR},
+      business_addr = #{businessAddr,jdbcType=VARCHAR},
+      business_owner = #{businessOwner,jdbcType=VARCHAR},
+      business_phone = #{businessPhone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from business_tab
+  </select>
+</mapper>

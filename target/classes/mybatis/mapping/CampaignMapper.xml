@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.demo.mapper.CampaignMapper" >
+  <resultMap id="BaseResultMap" type="com.test.demo.po.Campaign" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="activity_leader" property="activityLeader" jdbcType="VARCHAR" />
+    <result column="activity_type" property="activityType" jdbcType="VARCHAR" />
+    <result column="activity_desc" property="activityDesc" jdbcType="VARCHAR" />
+    <result column="activity_addr" property="activityAddr" jdbcType="VARCHAR" />
+    <result column="corp_name" property="corpName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activity_name, activity_leader, activity_type, activity_desc, activity_addr, corp_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from campaign_tab
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from campaign_tab
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.demo.po.Campaign" >
+    insert into campaign_tab (id, activity_name, activity_leader, 
+      activity_type, activity_desc, activity_addr, corp_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{activityName,jdbcType=VARCHAR}, #{activityLeader,jdbcType=VARCHAR}, 
+      #{activityType,jdbcType=VARCHAR}, #{activityDesc,jdbcType=VARCHAR}, #{activityAddr,jdbcType=VARCHAR},
+      #{corpName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.demo.po.Campaign" >
+    insert into campaign_tab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="activityLeader != null" >
+        activity_leader,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityDesc != null" >
+        activity_desc,
+      </if>
+      <if test="activityAddr != null" >
+        activity_addr,
+      </if>
+      <if test="corpName != null" >
+        corp_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLeader != null" >
+        #{activityLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDesc != null" >
+        #{activityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddr != null" >
+        #{activityAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="corpName != null" >
+        #{corpName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.demo.po.Campaign" >
+    update campaign_tab
+    <set >
+      <if test="activityName != null" >
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityLeader != null" >
+        activity_leader = #{activityLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDesc != null" >
+        activity_desc = #{activityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activityAddr != null" >
+        activity_addr = #{activityAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="corpName != null" >
+        corp_name = #{corpName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.demo.po.Campaign" >
+    update campaign_tab
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      activity_leader = #{activityLeader,jdbcType=VARCHAR},
+      activity_type = #{activityType,jdbcType=VARCHAR},
+      activity_desc = #{activityDesc,jdbcType=VARCHAR},
+      activity_addr = #{activityAddr,jdbcType=VARCHAR},
+      corp_name = #{corpName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getGongYiActivity" resultMap="BaseResultMap">
+    select *
+    from campaign_tab
+    where activity_type = "gongyi"
+  </select>
+
+  <select id="getCorpActivity" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from campaign_tab
+    where corp_name =#{corpName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectGongYiByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from campaign_tab
+    where activity_name= #{activityName,jdbcType=VARCHAR} and activity_type = "gongyi"
+  </select>
+
+  <select id="selectCorpActivityByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from campaign_tab
+    where activity_name= #{activityName,jdbcType=VARCHAR} and activity_type = "corp"
+  </select>
+
+  <select id="selectGongYiByLeader" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from campaign_tab
+    where activity_leader= #{activityLeader,jdbcType=VARCHAR} and activity_type = "gongyi"
+  </select>
+
+  <select id="selectCorpActivityByLeader" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from campaign_tab
+    where activity_leader= #{activityLeader,jdbcType=VARCHAR} and activity_type = "corp"
+  </select>
+
+</mapper>

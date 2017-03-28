@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.hibernate:hibernate-validator:5.0.0.Final">
+    <CLASSES>
+      <root url="jar://D:/360极速浏览器下载/repository/org/hibernate/hibernate-validator/5.0.0.Final/hibernate-validator-5.0.0.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/360极速浏览器下载/repository/org/hibernate/hibernate-validator/5.0.0.Final/hibernate-validator-5.0.0.Final-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/360极速浏览器下载/repository/org/hibernate/hibernate-validator/5.0.0.Final/hibernate-validator-5.0.0.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

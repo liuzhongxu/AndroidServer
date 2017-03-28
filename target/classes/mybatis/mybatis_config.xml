@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 加载数据源配置 -->
+	<properties resource="db.properties" />
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias alias="User" type="com.test.demo.po.User" />
+	</typeAliases>
+
+	<!--配置jdbc -->
+	<!-- <environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClass}" />
+				<property name="url" value="${jdbc.jdbcUrl}" />
+				<property name="username" value="${jdbc.user}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	<mappers>
+		<!-- 加载mapper -->
+		<!-- <mapper resource="mybatis/UserMapper.xml" /> -->
+		
+		<!--
+			注解的方式
+			自动扫描 加载mapper
+			但是mapper中.xml 必须与接口名字一样
+		 -->
+		<package name="com.test.demo.mapper" />
+	</mappers>
+</configuration>
